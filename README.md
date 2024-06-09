@@ -1,0 +1,1 @@
+Fono Sözlüklerini StarDict ve TSV biçimine çeviren Blazor Webassembly uygulaması ve yardımcı kütüphaneler
