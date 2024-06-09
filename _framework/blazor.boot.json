@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "FonoBlazor",
   "resources": {
-    "hash": "sha256-5W+fhCyMC7yf3kJ9OWgjg35XMjlEpMGNvsnrIPBX52s=",
+    "hash": "sha256-hVDnYiP9LReXbGPqq4GuBEQ9jR64cixXMQJE4OLu4+k=",
     "jsModuleNative": {
       "dotnet.native.8.0.6.16mu2eoohi.js": "sha256-VhDWgHoIxv2Hd8lLBEdwdeC3b+N015GPzQhCI5VxOY8="
     },
@@ -9,7 +9,7 @@
       "dotnet.runtime.8.0.6.usxxzh3qee.js": "sha256-+E96dgYQl8OrHQb4yNZ7QwNr3SZzLSP8lwKRzwSiMsw="
     },
     "wasmNative": {
-      "dotnet.native.wasm": "sha256-AHQqpoQufq0XG7JJZFmBPuRDKq1LjVQhlhtiA4CgrJA="
+      "dotnet.native.wasm": "sha256-o76ZfsU+Gu8xmaO1e9WHLgL3oOT3f1j1oPQ+Yunr0so="
     },
     "icu": {
       "icudt_CJK.dat": "sha256-SZLtQnRc0JkwqHab0VUVP7T3uBPSeYzxzDnpxPpUnHk=",
@@ -17,9 +17,9 @@
       "icudt_no_CJK.dat": "sha256-L7sV7NEYP37/Qr2FPCePo5cJqRgTXRwGHuwF5Q+0Nfs="
     },
     "assembly": {
-      "FonoBlazor.wasm": "sha256-tOSnqyEgUWeBnTS2qRLcBgMtQVNWYHQLuKouIHOAx2c=",
-      "FonoConverter.wasm": "sha256-DqBf5HlZxsSqniwJJRWHJq3ouqRxgraCfKW+L8NC2So=",
-      "FonoFileFormats.wasm": "sha256-mAuPSNv230EsIQj42+mWfu2vpIy0WyQ1F0INjVV7yCk=",
+      "FonoBlazor.wasm": "sha256-AHaSG308E72HuNmlO3LnUMMtv8WHd/9nRBC2QQbalS0=",
+      "FonoConverter.wasm": "sha256-PnlhWNE+gY1+t71qbfUyAzzpcEeTM0yFqgftaeHMwFE=",
+      "FonoFileFormats.wasm": "sha256-RH4SZlxczTB13zraWNnBQFpmeAOBfSIs/ZLRGhIUpx4=",
       "HunspellWordForms.wasm": "sha256-d9AuyTdBTj05x3QgwYtEh74A9myq6bwpIemIY0KmfTY=",
       "Microsoft.AspNetCore.Components.Forms.wasm": "sha256-Fnv8KD4eVNUNwaV5ff9dpAAvWoJOEBID6BRoVU+xTxY=",
       "Microsoft.AspNetCore.Components.wasm": "sha256-NC/dECxZBqg/n3ByqygWZdVP3O3HCEoaWsoOTXq/Bdg=",
