@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FonoFileFormats", "FonoFileFormats\FonoFileFormats.csproj", "{1AF78497-3333-4AF6-BBDA-5D6F762CE599}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FonoSozlukCli", "FonoSozlukCli\FonoSozlukCli.csproj", "{23BFF764-EC5E-4B86-882B-37FD8CB55AB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarDictNet", "..\StarDictNet\StarDictNet\StarDictNet.csproj", "{6DF1605C-359B-47EB-9F25-AA61C5D0A10F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FonoConverter", "FonoConverter\FonoConverter.csproj", "{EC355AB9-9660-4241-8797-7F24C58C7ADF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HunspellWordForms", "..\HunspellWordForms\src\HunspellWordForms.csproj", "{0E3A49B8-8CED-4E91-B814-037F2372E70E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FonoBlazor", "FonoBlazor\FonoBlazor.csproj", "{A7EEE4B7-0A80-4750-9AF5-CDAE6D6231BE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1AF78497-3333-4AF6-BBDA-5D6F762CE599}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AF78497-3333-4AF6-BBDA-5D6F762CE599}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AF78497-3333-4AF6-BBDA-5D6F762CE599}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AF78497-3333-4AF6-BBDA-5D6F762CE599}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23BFF764-EC5E-4B86-882B-37FD8CB55AB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23BFF764-EC5E-4B86-882B-37FD8CB55AB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23BFF764-EC5E-4B86-882B-37FD8CB55AB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23BFF764-EC5E-4B86-882B-37FD8CB55AB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DF1605C-359B-47EB-9F25-AA61C5D0A10F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DF1605C-359B-47EB-9F25-AA61C5D0A10F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DF1605C-359B-47EB-9F25-AA61C5D0A10F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DF1605C-359B-47EB-9F25-AA61C5D0A10F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC355AB9-9660-4241-8797-7F24C58C7ADF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC355AB9-9660-4241-8797-7F24C58C7ADF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC355AB9-9660-4241-8797-7F24C58C7ADF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC355AB9-9660-4241-8797-7F24C58C7ADF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E3A49B8-8CED-4E91-B814-037F2372E70E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E3A49B8-8CED-4E91-B814-037F2372E70E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E3A49B8-8CED-4E91-B814-037F2372E70E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E3A49B8-8CED-4E91-B814-037F2372E70E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7EEE4B7-0A80-4750-9AF5-CDAE6D6231BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7EEE4B7-0A80-4750-9AF5-CDAE6D6231BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7EEE4B7-0A80-4750-9AF5-CDAE6D6231BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7EEE4B7-0A80-4750-9AF5-CDAE6D6231BE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,300 @@
+﻿@page "/"
+
+@using FonoConverter
+@using FonoFileFormats
+@using HunspellWordForms
+@using System.Linq
+@using System.IO
+
+@inject IJSRuntime JS
+
+<PageTitle>Fono Sözlük Dönüştürücü</PageTitle>
+
+<FluentInputFile Id="fono-format-uploader"
+                Mode="InputFileMode.Stream"
+                Multiple="false"
+                MaximumFileSize="@(25*1024*1024)"
+                Accept=".kdd, .xml"
+                OnCompleted="@OnFonoReadAsync"
+                Style="height: 150px; border: 2px dashed var(--accent-fill-rest);">
+    <ChildContent>
+        <label for="fono-format-uploader">
+            <FluentIcon Value="@(new @Icons.Regular.Size24.ArrowUpload())" />
+        </label>
+
+        <div>
+            Sözlük dosyalarını bu alana sürükleyip bırakın,
+            ya da dosyalara <label for="fono-format-uploader">göz atın</label>.
+            <br />
+        </div>
+    </ChildContent>
+</FluentInputFile>
+
+<FluentInputFile AnchorId="HunspellDicStream"
+                 DragDropZoneVisible="false"
+                 Mode="InputFileMode.Stream"
+                 Multiple="false"
+                 MaximumFileSize="@(100 * 1024 * 1024)"
+                 Accept=".dic"
+                 OnCompleted="@OnDicUploadAsync" />
+
+<FluentInputFile AnchorId="HunspellAffStream"
+                 DragDropZoneVisible="false"
+                 Mode="InputFileMode.Stream"
+                 Multiple="false"
+                 MaximumFileSize="@(100 * 1024 * 1024)"
+                 Accept=".aff"
+                 OnCompleted="@OnAffUploadAsync" />
+
+<FluentStack Orientation="Orientation.Horizontal" HorizontalAlignment="HorizontalAlignment.Center" Style="margin: 5px;">
+    <FluentButton Appearance="Appearance.Accent" Id="HunspellDicStream" Disabled="@dicUploadDisabled">
+        @($"Hunspell Dic Dosyası{dicUploadedCheckMark}")
+    </FluentButton>
+
+    <FluentButton Appearance="Appearance.Accent" Id="HunspellAffStream" Disabled="@affUploadDisabled">
+        @($"Hunspell Aff Dosyası{affUploadedCheckMark}")
+    </FluentButton>
+
+    <FluentButton Appearance="Appearance.Accent" Disabled="@saveAsStardictDisabled" OnClick="@SaveAsStardictAsync">
+        StarDict Olarak Kaydet
+    </FluentButton>
+
+    <FluentButton Appearance="Appearance.Accent" Disabled="@saveAsTsvDisabled" OnClick="@SaveAsTSVAsync">
+        TSV Olarak Kaydet
+    </FluentButton>
+</FluentStack>
+
+@if (showData)
+{
+    @if (!string.IsNullOrWhiteSpace(@fonoFormat.Abbreviations))
+    {
+        <FluentAccordion>
+            <FluentAccordionItem>
+                <HeadingTemplate>
+                    <strong>Kısaltmalar</strong>
+                </HeadingTemplate>
+                <ChildContent>
+                    @fonoFormat.Abbreviations.ToMarkup()
+                </ChildContent>
+            </FluentAccordionItem>
+        </FluentAccordion>
+        <FluentDivider Style="width: 100%; margin: 5px; border: 1px solid var(--accent-fill-rest);" Orientation="Orientation.Horizontal" Role="DividerRole.Presentation"></FluentDivider>
+    }
+
+    <FluentDataGrid Items="@FilteredItems" ResizableColumns=true Pagination="@pagination" GridTemplateColumns="0.4fr 1fr " Style="margin: 5px; overflow:auto;">
+        <PropertyColumn Property="@(c => c.Headword)" Sortable="true" Filtered="!string.IsNullOrWhiteSpace(headwordFilter)" Tooltip="true" Title="Madde Başı">
+            <ColumnOptions>
+                <div class="search-box">
+                    <FluentSearch @bind-Value=headwordFilter @oninput="HandleHeadwordFilter" @bind-Value:after="HandleClear" Placeholder="Madde Başı..." />
+                </div>
+            </ColumnOptions>
+        </PropertyColumn>
+        <TemplateColumn Title="Tanım" Class="multiline-text" >
+            @context.Definition.ToMarkup()
+        </TemplateColumn>
+    </FluentDataGrid>
+
+    <FluentPaginator State="@pagination" />
+}
+
+@if (showFonoLoading)
+{
+    <FluentOverlay @bind-Visible=@showFonoLoading
+                Opacity="0.4"
+                BackgroundColor="#7c8491"
+                FullScreen="true"
+                Dismissable="false"
+                PreventScroll=true>
+        <ChildContent>
+            <FluentLabel Typo="Typography.Body">
+                (@FonoReadPercent()) @($"{readProgress.Step:n0}") / @($"{readProgress.Total:n0}") tane girdi okundu
+            </FluentLabel>
+        </ChildContent>
+    </FluentOverlay>
+}
+
+@if (savingAsStardict)
+{
+    <FluentOverlay @bind-Visible=@savingAsStardict
+                Opacity="0.4"
+                BackgroundColor="#7c8491"
+                FullScreen="true"
+                Dismissable="false"
+                PreventScroll=true>
+        <ChildContent>
+            <FluentLabel Weight="FontWeight.Bolder" Typo="Typography.Body">
+                Sözlük StarDict biçiminde kaydediliyor...
+            </FluentLabel>
+        </ChildContent>
+    </FluentOverlay>
+}
+
+@if (savingAsTsv)
+{
+    <FluentOverlay @bind-Visible=@savingAsTsv
+                Opacity="0.4"
+                BackgroundColor="#7c8491"
+                FullScreen="true"
+                Dismissable="false"
+                PreventScroll=true>
+        <ChildContent>
+            <FluentLabel Weight="FontWeight.Bolder" Typo="Typography.Body">
+                Sözlük TSV biçiminde kaydediliyor...
+            </FluentLabel>
+        </ChildContent>
+    </FluentOverlay>
+}
+
+@code{
+    BaseFonoFormat fonoFormat;
+    PaginationState pagination = new PaginationState { ItemsPerPage = 15 };
+    FonoFileFormats.Progress readProgress;
+    Stream? dicStream;
+    Stream? affStream;
+    bool showData = false;
+    bool showFonoLoading = false;
+    bool savingAsStardict = false;
+    bool savingAsTsv = false;
+    bool dicUploadDisabled = true;
+    bool affUploadDisabled = true;
+    bool saveAsStardictDisabled = true;
+    bool saveAsTsvDisabled = true;
+    bool saveOptionsDisabled = true;
+    string dicUploadedCheckMark = string.Empty;
+    string affUploadedCheckMark = string.Empty;
+    string headwordFilter = string.Empty;
+    string fonoDictFileName = string.Empty;
+
+    IQueryable<FonoFileFormats.Entry>? FilteredItems => fonoFormat?.Where(x => x.Headword.Contains(headwordFilter, StringComparison.CurrentCultureIgnoreCase)).AsQueryable();
+
+    private async Task OnFonoReadAsync(IEnumerable<FluentInputFileEventArgs> files)
+    {
+        showData = false;
+        dicUploadDisabled = true;
+        affUploadDisabled = true;
+        saveAsStardictDisabled = true;
+        saveAsTsvDisabled = true;
+        saveOptionsDisabled = true;
+        headwordFilter = string.Empty;
+        dicUploadedCheckMark = string.Empty;
+        affUploadedCheckMark = string.Empty;
+        dicStream = null;
+        affStream = null;
+        showFonoLoading = true;
+        var fonoDictFile = files.First();
+        fonoDictFileName = fonoDictFile.Name;
+        await using (MemoryStream ms = new MemoryStream())
+        {
+            readProgress = new();
+            readProgress.StepIncremented += OnStepIncremented;
+            await fonoDictFile.Stream.CopyToAsync(ms);
+            ms.Seek(0, SeekOrigin.Begin);
+            var formatType = FonoFormat.GuessTypeFromFileExtension(fonoDictFileName);
+            fonoFormat = await FonoFormat.GetFonoFormatAsync(ms, readProgress, formatType);
+            showFonoLoading = false;
+            if (fonoFormat != null && fonoFormat.Length > 0)
+            {
+                showData = true;
+                dicUploadDisabled = false;
+                affUploadDisabled = false;
+                saveOptionsDisabled = false;
+                saveAsStardictDisabled = false;
+                saveAsTsvDisabled = false;
+            }
+            else
+                showData = false;
+        }
+    }
+    private async Task OnDicUploadAsync(IEnumerable<FluentInputFileEventArgs> files)
+    {
+        await Task.Delay(1);
+        var dicFile = files.First();
+        dicStream = dicFile.Stream;
+        dicUploadedCheckMark = " ✔";
+    }
+
+    private async Task OnAffUploadAsync(IEnumerable<FluentInputFileEventArgs> files)
+    {
+        await Task.Delay(1);
+        var affFile = files.First();
+        affStream = affFile.Stream;
+        affUploadedCheckMark = " ✔";
+    }
+
+    public void OnStepIncremented(object source, EventArgs e)
+    {
+        StateHasChanged();
+    }
+
+    public string FonoReadPercent()
+    {
+        var percent = readProgress.Total != 0 ? ((double)readProgress.Step / readProgress.Total) : 0;
+        return percent.ToString("P2");
+    }
+
+    private void HandleHeadwordFilter(ChangeEventArgs args)
+    {
+        if (args.Value is string value)
+        {
+            headwordFilter = value;
+        }
+    }
+
+    private void HandleClear()
+    {
+        if (string.IsNullOrWhiteSpace(headwordFilter))
+        {
+            headwordFilter = string.Empty;
+        }
+    }
+
+    private DictInfo GetDictInfo()
+    {
+        var stem = Path.GetFileNameWithoutExtension(fonoDictFileName);
+        var dictInfo = new DictInfo()
+        {
+            Author = "FonoSozlukNet @ https:/anezih.github.io/FonoSozlukNet",
+            FileName = stem,
+            Title = stem,
+            Description = $"{stem} Fono Sözlüğü"
+        };
+        return dictInfo;
+    }
+
+    private async Task SaveAsStardictAsync()
+    {
+        var dictInfo = GetDictInfo();
+        var fName = $"{dictInfo.FileName}_StarDict.zip";
+        if (dicStream != null & affStream != null)
+        {
+            savingAsStardict = true;
+            var wordForms = await WordForms.CreateAsync(dicStream, affStream);
+            var converter = new Converter(dictInfo, fonoFormat, wordForms);
+            var stardictMs = await converter.ToStardict();
+            using var streamRef = new DotNetStreamReference(stardictMs);
+            await JS.InvokeVoidAsync("downloadFileFromStream", fName, streamRef);
+            savingAsStardict = false;
+        }
+        else
+        {
+            savingAsStardict = true;
+            var converter = new Converter(dictInfo, fonoFormat);
+            var stardictMs = await converter.ToStardict();
+            using var streamRef = new DotNetStreamReference(stardictMs);
+            await JS.InvokeVoidAsync("downloadFileFromStream", fName, streamRef);
+            savingAsStardict = false;
+        }
+    }
+
+    private async Task SaveAsTSVAsync()
+    {
+        savingAsTsv = true;
+        var dictInfo = GetDictInfo();
+        var fName = $"{dictInfo.FileName}.tsv";
+        var converter = new Converter(dictInfo, fonoFormat);
+        var tsvMs = await converter.ToTsv();
+        using var streamRef = new DotNetStreamReference(tsvMs);
+        await JS.InvokeVoidAsync("downloadFileFromStream", fName, streamRef);
+        savingAsTsv = false;
+    }
+}

@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\HunspellWordForms\src\HunspellWordForms.csproj" />
+    <ProjectReference Include="..\..\StarDictNet\StarDictNet\StarDictNet.csproj" />
+    <ProjectReference Include="..\FonoFileFormats\FonoFileFormats.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

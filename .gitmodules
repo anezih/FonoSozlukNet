@@ -1,0 +1,6 @@
+[submodule "HunspellWordForms"]
+	path = HunspellWordForms
+	url = https://github.com/anezih/HunspellWordForms
+[submodule "StarDictNet"]
+	path = StarDictNet
+	url = https://github.com/anezih/StarDictNet
