@@ -47,7 +47,7 @@ public class Converter
                 );
             }
         }
-        var stardictMs = await StarDictNet.StarDictNet.Write(
+        var stardictMs = await StarDictNet.StarDictNet.WriteAsync(
             entries:outputEntries,
             fileName:dictInfo.FileName,
             title:dictInfo.Title,
