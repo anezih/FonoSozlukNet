@@ -17,3 +17,7 @@ dosyaları doğrultusunda StarDict biçimine madde başlarının çekimli duruml
 "yapıtlarını" araması "yapıt" sonucunu döndürür. Hunspell dosyalarını
 <a href="https://github.com/wooorm/dictionaries">https://github.com/wooorm/dictionaries</a> adresinden
 edinebilirsiniz.
+
+# Önizleme
+
+[FonoSozlukNet_onizleme.webm](https://github.com/anezih/FonoSozlukNet/assets/90565940/a9cfeef2-605f-45b1-8fad-45e7e970bccf)
