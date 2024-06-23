@@ -10,6 +10,35 @@
 
 <PageTitle>Fono Sözlük Dönüştürücü</PageTitle>
 
+<FluentStack Orientation="Orientation.Vertical" Style="margin: 15px 0px; padding: 15px; border: 1px solid var(--accent-fill-rest);">
+    <FluentLabel Typo="Typography.Body">
+        Fono sözlüklerini StarDict ve TSV biçimlerine çevirebilen bir Blazor Webassembly uygulaması.
+    </FluentLabel>
+    
+    <FluentLabel Typo="Typography.Body">
+        İlgili sözlüklerin veri dosyaları Fono'nun 2004-2008 aralığında çıkarttığı 
+        Büyük (ve nadiren de olsa Modern) Sözlük'ün yanında gelen CD-ROM'larda yer almaktadır.
+    </FluentLabel>
+
+    <FluentLabel Typo="Typography.Body">
+        FonoSozlukNet, EuroDict XP (.KDD) ve XML formatlarını okuyabilmektedir.
+    </FluentLabel>
+
+    <FluentLabel Typo="Typography.Body">
+        Sözlükleri dönüştürmek için veri dosyasını aşağıdaki dosya alanına sürükleyin. İlerleme durumu
+        ekranın ortasında gösterilecektir. Okuma bitene kadar <strong>sekmeyi değiştirmeyin</strong>,
+        yoksa tarayıcı arka plana alınan uygulamanın çalışmasını duraklatabilir. Dosya başarılı bir
+        şekilde okunduktan sonra madde başları ve tanımlar tablo biçimide alt kısımda gösterilecek ve kaydetme
+        seçenekleri etkin duruma gelecektir. "TSV Olarak Kaydet" tuşuyla sözlüğü TAB (\t) karakteriyle ayrılmış
+        biçimde kaydedebilirsiniz. "StarDict Olarak Kaydet" tuşuyla sözlük StarDict biçimine dönüştürülerek ZIP
+        arşivi olarak kaydedilir. "Hunspell Dic Dosyası" ve "Hunspell Aff Dosyası" kullanıcının yüklediği Hunspell
+        dosyaları doğrultusunda StarDict biçimine madde başlarının çekimli durumlarını ekler, böylece örneğin
+        "yapıtlarını" araması "yapıt" sonucunu döndürür. Hunspell dosyalarını 
+        <a href="https://github.com/wooorm/dictionaries">https://github.com/wooorm/dictionaries</a> adresinden
+        edinebilirsiniz.
+    </FluentLabel>
+</FluentStack>
+
 <FluentInputFile Id="fono-format-uploader"
                 Mode="InputFileMode.Stream"
                 Multiple="false"
@@ -106,9 +135,18 @@
                 Dismissable="false"
                 PreventScroll=true>
         <ChildContent>
-            <FluentLabel Typo="Typography.Body">
-                (@FonoReadPercent()) @($"{readProgress.Step:n0}") / @($"{readProgress.Total:n0}") tane girdi okundu
-            </FluentLabel>
+            <FluentStack Orientation="Orientation.Vertical" HorizontalAlignment="HorizontalAlignment.Center">
+                <FluentProgress Min="0"
+                        @bind-Max=@readProgress.Total
+                        Value=@readProgress.Step
+                        Width="300px" 
+                        Stroke="ProgressStroke.Large" />
+                <FluentLabel Typo="Typography.Body">
+                    <div style="background: var(--accent-fill-rest);">
+                        <span style="color: var(--fill-color);">&nbsp; (@FonoReadPercent()) @($"{readProgress.Step:n0}") / @($"{readProgress.Total:n0}") tane girdi okundu &nbsp;</span>
+                    </div>
+                </FluentLabel>
+            </FluentStack>
         </ChildContent>
     </FluentOverlay>
 }
