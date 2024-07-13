@@ -49,7 +49,7 @@ jobs:
           dotnet publish ./FonoSozlukNet/FonoSozlukCli/FonoSozlukCli.csproj -c:Release -r "${{ matrix.target }}" -o "$release_name"
 
           # Pack files
-          if [[ "${{ matrix.target }}" == "win-x64" || "${{ matrix.target }}" == "win-arm64"]]; then
+          if [[ "${{ matrix.target }}" == "win-x64" || "${{ matrix.target }}" == "win-arm64" ]]; then
             # Pack to zip for Windows
             7z a -tzip "${release_name}.zip" "./${release_name}/*"
           else
