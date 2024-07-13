@@ -72,9 +72,21 @@ fluent-anchored-region[b-2ov9fhztky] {
 
 [b-dkkdhxy2t7] .fluent-appbar-item:hover svg[part="icon-rest"],
 [b-dkkdhxy2t7] .fluent-appbar-item:not(:hover):not(.active) svg[part="icon-active"],
-[b-dkkdhxy2t7] .fluent-appbar-item:not(:hover).active svg[part="icon-rest"],
+[b-dkkdhxy2t7] .fluent-appbar-item:not(:hover) a.active svg[part="icon-rest"],
 [b-dkkdhxy2t7] .fluent-appbar-item[overflow] {
     display: none;
+}
+
+[b-dkkdhxy2t7] .fluent-appbar-item:not(:hover) .active svg[part="icon-active"] {
+    display: block;
+}
+
+[b-dkkdhxy2t7] .fluent-appbar-item.popover:not(:hover) a.active svg[part="icon-active"] {
+    display: none;
+}
+
+[b-dkkdhxy2t7] .fluent-appbar-item.popover:not(:hover) a.active svg[part="icon-rest"] {
+    display: block;
 }
 /* _content/Microsoft.FluentUI.AspNetCore.Components/Components/BodyContent/FluentBodyContent.razor.rz.scp.css */
 .body-content[b-9l28a7kahd] {
@@ -205,6 +217,7 @@ fluent-data-grid[b-ppmhrkw1mj] {
 
 .col-options[b-ppmhrkw1mj] {
     position: absolute;
+    min-width: 250px;
     top: 2.2rem;
     background: var(--neutral-layer-2);
     border: 1px solid var(--neutral-layer-3);
@@ -220,12 +233,12 @@ fluent-data-grid[b-ppmhrkw1mj] {
 
 .col-justify-end .col-options[b-ppmhrkw1mj], .col-justify-right .col-options[b-ppmhrkw1mj] {
     left: unset;
-    right: 0.2rem;
+    margin-right:  0.6rem;
 }
 
 [dir=rtl] .col-justify-end .col-options[b-ppmhrkw1mj], [dir=rtl] .col-justify-right .col-options[b-ppmhrkw1mj] {
     right: unset;
-    left: 0.2rem;
+    margin-left: 0.6rem;
 }
 
 [b-ppmhrkw1mj] > fluent-data-grid-row > fluent-data-grid-cell.grid-cell-placeholder:after {
@@ -233,6 +246,12 @@ fluent-data-grid[b-ppmhrkw1mj] {
     opacity: 0.75;
 }
 
+.resize-options[b-ppmhrkw1mj] {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
 
 
 [b-ppmhrkw1mj] .col-width-draghandle {
@@ -263,7 +282,6 @@ fluent-data-grid-cell[b-w6qdxfylwy] {
 .column-header[b-w6qdxfylwy] {
     display: flex;
     width: 100%;
-    height: 100%;
     align-self: center;
     padding-inline: 0;
     padding-right: 1px;
@@ -306,6 +324,7 @@ fluent-data-grid-cell[b-w6qdxfylwy] {
 
     .column-header.col-justify-end[b-w6qdxfylwy]  .col-title-text, .column-header.col-justify-right[b-w6qdxfylwy]  .col-title-text {
         text-align: end;
+        padding-left: 4px;
     }
 
     .column-header.col-justify-end[b-w6qdxfylwy]  .col-sort-button, .column-header.col-justify-right[b-w6qdxfylwy]  .col-sort-button {
@@ -2712,6 +2731,25 @@ div[dragged-over][b-qxma62j335] {
 fluent-radio[b-98313echfq] {
     margin: calc(var(--design-unit) * 1px) 0;
 }
+/* _content/Microsoft.FluentUI.AspNetCore.Components/Components/Rating/FluentRating.razor.rz.scp.css */
+.fluent-rating[b-9p46vl6e0d] {
+    justify-content: start;
+    align-items: start;
+    column-gap: 0px;
+}
+
+    .fluent-rating[b-9p46vl6e0d]  input[type='radio'] {
+        opacity: 0;
+        position: absolute;
+        width: 0px;
+        height: 0px;
+    }
+
+    .fluent-rating:focus-within[b-9p46vl6e0d]  svg[selected] {
+        outline-style: auto;
+        outline-color: var(--focus-stroke-outer);
+        outline-width: var(--focus-stroke-width);
+    }
 /* _content/Microsoft.FluentUI.AspNetCore.Components/Components/SortableList/FluentSortableList.razor.rz.scp.css */
 /* 
   you need the ::deep identifier if you are using scoped styles like this
@@ -2890,7 +2928,7 @@ fluent-radio[b-98313echfq] {
     }
 
         .fluent-multi-splitter[orientation="horizontal"][b-ug2ltnxcve]  > .fluent-multi-splitter-bar > span[part="collapse"]:before {
-            content: '\025C0;';            
+            content: '\025C0';            
         }
 
         .fluent-multi-splitter[orientation="horizontal"][b-ug2ltnxcve]  > .fluent-multi-splitter-bar > span[part="resize"] {
@@ -2899,7 +2937,7 @@ fluent-radio[b-98313echfq] {
         }
 
         .fluent-multi-splitter[orientation="horizontal"][b-ug2ltnxcve]  > .fluent-multi-splitter-bar > span[part="expand"]:before {
-            content: '\025B6;';
+            content: '\025B6';
         }
 
         .fluent-multi-splitter[orientation="horizontal"][b-ug2ltnxcve]  > .fluent-multi-splitter-bar[status="resizable"]:hover {
@@ -2917,7 +2955,7 @@ fluent-radio[b-98313echfq] {
     }
 
         .fluent-multi-splitter[orientation="vertical"][b-ug2ltnxcve]  > .fluent-multi-splitter-bar > span[part="collapse"]:before {
-            content: '\025B2;';
+            content: '\025B2';
         }
 
         .fluent-multi-splitter[orientation="vertical"][b-ug2ltnxcve]  > .fluent-multi-splitter-bar > span[part="resize"] {
@@ -2926,7 +2964,7 @@ fluent-radio[b-98313echfq] {
         }
 
         .fluent-multi-splitter[orientation="vertical"][b-ug2ltnxcve]  > .fluent-multi-splitter-bar > span[part="expand"]:before {
-            content: '\025BC;';
+            content: '\025BC';
         }
 
         .fluent-multi-splitter[orientation="vertical"][b-ug2ltnxcve]  > .fluent-multi-splitter-bar[status="resizable"]:hover {
@@ -2938,6 +2976,8 @@ fluent-radio[b-98313echfq] {
     overflow: hidden;
     position: relative;
     flex: 0 1 auto;
+    flex-grow: 0;
+    flex-shrink: 0;
 }
 
     .fluent-multi-splitter[b-ug2ltnxcve]  > .fluent-multi-splitter-pane[status="collapsed"] {
@@ -3045,7 +3085,6 @@ fluent-tab[b-urryfr514w] {
         justify-content: flex-end;
         align-items: center;
         gap: 8px;
-        cursor: pointer;
         width: 48px;
         min-width: 48px;
         height: 20px;
@@ -3318,7 +3357,7 @@ fluent-tab[b-urryfr514w] {
 
 /* Icon Number */
 .fluent-wizard > ol > li .fluent-wizard-icon-number[b-a5o5s1yurv] {
-    margin-top: calc(var(--fluent-wizard-circle-size) * -1 - 4px);
+    margin-top: calc(var(--fluent-wizard-circle-size) * -1 - 5px);
     font-size: small;
     color: var(--accent-fill-rest);
     text-align: center;
