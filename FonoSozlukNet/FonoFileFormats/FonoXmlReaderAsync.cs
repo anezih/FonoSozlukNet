@@ -63,5 +63,5 @@ public class FonoXmlReaderAsync : BaseFonoFormat
         }
     }
 
-    protected override void ReadEntries(){}
+    protected override void ReadEntries(Progress progress){}
 }

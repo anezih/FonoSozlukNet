@@ -68,5 +68,5 @@ public abstract class BaseFonoFormat : IEnumerable<Entry>
         return html;
     }
 
-    protected abstract void ReadEntries();
+    protected abstract void ReadEntries(Progress progress);
 }

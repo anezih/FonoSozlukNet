@@ -12,22 +12,22 @@ public class FonoFormat
             return FormatType.UNKNOWN;
     }
 
-    public static BaseFonoFormat? GetFonoFormat(string path, FormatType fileFormat)
+    public static BaseFonoFormat? GetFonoFormat(string path, Progress progress, FormatType fileFormat)
     {
         return fileFormat switch
         {
-            FormatType.KDD => new KddReader(path),
-            FormatType.XML => new FonoXmlReader(path),
+            FormatType.KDD => new KddReader(path, progress),
+            FormatType.XML => new FonoXmlReader(path, progress),
             _ => null,
         };
     }
 
-    public static BaseFonoFormat? GetFonoFormat(Stream stream, FormatType fileFormat)
+    public static BaseFonoFormat? GetFonoFormat(Stream stream, Progress progress, FormatType fileFormat)
     {
         return fileFormat switch
         {
-            FormatType.KDD => new KddReader(stream),
-            FormatType.XML => new FonoXmlReader(stream),
+            FormatType.KDD => new KddReader(stream, progress),
+            FormatType.XML => new FonoXmlReader(stream, progress),
             _ => null,
         };
     }

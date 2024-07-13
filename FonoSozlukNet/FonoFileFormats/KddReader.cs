@@ -15,19 +15,19 @@ public class KddReader : BaseFonoFormat
     private static readonly byte[] Utf16Newline = [0x0A, 0x00];
     private static readonly byte[] ZlibLastThreeBytes = [0x00, 0x78, 0xDA];
 
-    public KddReader(string path)
+    public KddReader(string path, Progress progress)
     {
         kddFileStream = File.Open(path, FileMode.Open);
         kddStream = new BinaryReader(kddFileStream);
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-        ReadEntries();
+        ReadEntries(progress);
     }
 
-    public KddReader(Stream stream)
+    public KddReader(Stream stream, Progress progress)
     {
         kddStream = new BinaryReader(stream);
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-        ReadEntries();
+        ReadEntries(progress);
     }
     ~KddReader()
     {
@@ -94,7 +94,7 @@ public class KddReader : BaseFonoFormat
         return result;
     }
 
-    protected override void ReadEntries()
+    protected override void ReadEntries(Progress progress)
     {
         if (!CheckHeader() | !kddStream.BaseStream.CanSeek)
             return;
@@ -110,6 +110,7 @@ public class KddReader : BaseFonoFormat
             totalWords += length;
             kddStream.BaseStream.Seek(6, SeekOrigin.Current);
         }
+        progress.Total = totalWords;
         entries = new List<Entry>(totalWords);
         kddStream.BaseStream.Seek(headwordsOffset, SeekOrigin.Begin);
         List<byte> headword = new();
@@ -128,7 +129,7 @@ public class KddReader : BaseFonoFormat
                     var hw = HandleHeadword(Encoding.Unicode.GetString(headword.Skip(skip).ToArray()));
                     entries.Add(new Entry());
                     entries[headwordCnt].Headword = hw;
-                    headwordCnt += 1;
+                    headwordCnt++;
                     headword.Clear();
                 }
                 else
@@ -160,9 +161,9 @@ public class KddReader : BaseFonoFormat
             kddStream.BaseStream.Seek(2, SeekOrigin.Current);
             var definition = Rtf2Html(ReadZlib(kddStream, definitionLength, 4));
             entries[definitionCnt].Definition = definition;
-            definitionCnt += 1;
+            definitionCnt++;
+            progress.Step = definitionCnt;
             kddStream.BaseStream.Seek(4, SeekOrigin.Current);
-            Console.WriteLine(definitionCnt);
         }
     }
 }
