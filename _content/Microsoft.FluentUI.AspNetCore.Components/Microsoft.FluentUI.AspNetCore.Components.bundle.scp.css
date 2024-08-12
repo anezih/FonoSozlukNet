@@ -2511,19 +2511,19 @@ div[dragged-over][b-qxma62j335] {
 }
 
 /* level indenting */
-[b-vs37bumpa7] .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item .content-region {
+[b-vs37bumpa7] .fluent-nav-group * .fluent-nav-menu .fluent-nav-item .content-region {
     padding-inline-start: 24px;
 }
 
-[b-vs37bumpa7] .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item .content-region {
+[b-vs37bumpa7] .fluent-nav-group * .fluent-nav-menu .fluent-nav-item * .fluent-nav-menu .fluent-nav-item .content-region {
     padding-inline-start: 48px;
 }
 
-[b-vs37bumpa7] .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item .content-region {
+[b-vs37bumpa7] .fluent-nav-group * .fluent-nav-menu .fluent-nav-item * .fluent-nav-menu .fluent-nav-item * .fluent-nav-menu .fluent-nav-item .content-region {
     padding-inline-start: 72px;
 }
 
-[b-vs37bumpa7] .fluent-nav-group * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item * .fluent-nav-menu > .fluent-nav-item .content-region {
+[b-vs37bumpa7] .fluent-nav-group * .fluent-nav-menu .fluent-nav-item * .fluent-nav-menu .fluent-nav-item * .fluent-nav-menu .fluent-nav-item * .fluent-nav-menu .fluent-nav-item .content-region {
     padding-inline-start: 96px;
 }
 
@@ -2581,6 +2581,13 @@ div[dragged-over][b-qxma62j335] {
 
 .fluent-overflow[b-vceposnczs]  > *[overflow] {
     display: none;
+}
+
+.fluent-overflow[b-vceposnczs]  .fluent-overflow-item[fixed='ellipsis'] {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: fit-content;
 }
 /* _content/Microsoft.FluentUI.AspNetCore.Components/Components/Overlay/FluentOverlay.razor.rz.scp.css */
 .fluent-overlay[b-xkrr7evqik] {
@@ -2931,6 +2938,10 @@ fluent-radio[b-98313echfq] {
             content: '\025C0';            
         }
 
+        [dir="rtl"] .fluent-multi-splitter[orientation="horizontal"][b-ug2ltnxcve]  > .fluent-multi-splitter-bar > span[part="collapse"]:before {
+            content: '\025B6';
+        }
+
         .fluent-multi-splitter[orientation="horizontal"][b-ug2ltnxcve]  > .fluent-multi-splitter-bar > span[part="resize"] {
             height: 16px;
             margin: 2px 0;
@@ -2938,6 +2949,10 @@ fluent-radio[b-98313echfq] {
 
         .fluent-multi-splitter[orientation="horizontal"][b-ug2ltnxcve]  > .fluent-multi-splitter-bar > span[part="expand"]:before {
             content: '\025B6';
+        }
+
+        [dir="rtl"] .fluent-multi-splitter[orientation="horizontal"][b-ug2ltnxcve]  > .fluent-multi-splitter-bar > span[part="expand"]:before {
+            content: '\025C0';
         }
 
         .fluent-multi-splitter[orientation="horizontal"][b-ug2ltnxcve]  > .fluent-multi-splitter-bar[status="resizable"]:hover {
