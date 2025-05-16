@@ -65,5 +65,7 @@ Copyright (C) 2024 https://github.com/anezih
 | TURITA_P.KDD | Türkçe - İtalyanca  | 27.346        |
 | SPATUR_P.KDD | İspanyolca - Türkçe | 28.664        |
 | TURSPA_P.KDD | Türkçe - İspanyolca | 37.712        |
+| GERTUR_P.KDD | Almanca - Türkçe    | 88.179        |
+| TURGER_P.KDD | Türkçe - Almanca    | 32.308        |
 
-*Rusça ve/veya Almanca sözlüklerin dil dosyaları elinizde varsa deneme sonuçlarınızı issues kısmından iletebilirsiniz.*
+*Rusça sözlüğün dil dosyaları elinizde varsa deneme sonuçlarınızı issues kısmından iletebilirsiniz.*

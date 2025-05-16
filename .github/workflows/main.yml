@@ -2,6 +2,8 @@ name: FonoSozlukNet Blazor Webassembly isi
 
 on:
   push:
+    paths-ignore:
+      - 'README.md'
     branches:
       - main
 
@@ -14,18 +16,18 @@ jobs:
         with:
           submodules: recursive
 
-      # Install .NET Core SDK
-      - name: Setup .NET Core
+      # Install .NET
+      - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: 9.0.x
           
       # Install dotnet wasm buildtools workload
       - name: Install .NET WASM Build Tools
         run: dotnet workload install wasm-tools
           
       # Publishes Blazor project to the release-folder
-      - name: Publish .NET Core Project
+      - name: Publish .NET Project
         run: dotnet publish ./FonoSozlukNet/FonoBlazor/FonoBlazor.csproj -c:Release -p:GHPages=true -o dist/Web --nologo
 
       - name: Commit wwwroot to GitHub Pages

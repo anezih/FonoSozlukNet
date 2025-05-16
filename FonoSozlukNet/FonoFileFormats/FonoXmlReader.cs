@@ -28,7 +28,9 @@ public class FonoXmlReader : BaseFonoFormat
         var kelimeler = fonoXml.GetElementsByTagName("KELIME");
         if (kelimeler.Count == 0)
             return;
+        progress.Total = kelimeler.Count;
         entries = new List<Entry>(kelimeler.Count);
+        int entriesCnt = 0;
         foreach (XmlNode kelime in kelimeler)
         {
             var sozcuk = kelime.SelectSingleNode(".//SOZCUK");
@@ -45,6 +47,8 @@ public class FonoXmlReader : BaseFonoFormat
                     Definition = Rtf2Html(definition)
                 };
                 entries.Add(entry);
+                entriesCnt++;
+                progress.Step = entriesCnt;
             }
         }
     }
