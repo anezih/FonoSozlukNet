@@ -68,17 +68,30 @@ public class FonoXmlReaderAsync : BaseFonoFormat
     }
 
     protected override void ReadEntries(Progress progress) { }
-    
+
+    private void ResetStreamReader(StreamReader sr)
+    {
+        sr.BaseStream.Seek(0, SeekOrigin.Begin);
+        sr.DiscardBufferedData();
+    }
+
     private bool Is1251Necessary(StreamReader sr)
     {
         var firstLine = sr.ReadLine();
         if (string.IsNullOrEmpty(firstLine))
+        {
+            ResetStreamReader(sr);
             return false;
+        }
         var match = Regex.Match(firstLine, "encoding=\"(.*?)\"");
         if (match.Success
             && match.Groups.Count > 1
             && match.Groups[1].Value == "windows-1251")
+        {
+            ResetStreamReader(sr);
             return true;
+        }
+        ResetStreamReader(sr);
         return false;
     }
 }
