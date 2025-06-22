@@ -67,5 +67,5 @@ Copyright (C) 2024 https://github.com/anezih
 | TURSPA_P.KDD | Türkçe - İspanyolca | 37.712        |
 | GERTUR_P.KDD | Almanca - Türkçe    | 88.179        |
 | TURGER_P.KDD | Türkçe - Almanca    | 32.308        |
-
-*Rusça sözlüğün dil dosyaları elinizde varsa deneme sonuçlarınızı issues kısmından iletebilirsiniz.*
+| RS_TR.xml    | Rusça - Türkçe      | 40.353        |
+| TR_RS.xml    | Türkçe - Rusça      | 34.089        |
