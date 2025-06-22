@@ -34,7 +34,7 @@ public class Converter
                 await Task.Delay(1);
                 var wf = wordForms.GetWordForms(item.Headword, NoPFX:true, NoCross:true).SFX;
                 outputEntries.Add(
-                    new OutputEntry(item.Headword, item.Definition, wf)
+                    new OutputEntry(item.Headword!, item.Definition!, wf)
                 );
             }
         }
@@ -43,7 +43,7 @@ public class Converter
             foreach (var item in fonoFormat)
             {
                 outputEntries.Add(
-                    new OutputEntry(item.Headword, item.Definition)
+                    new OutputEntry(item.Headword!, item.Definition!)
                 );
             }
         }
@@ -66,7 +66,7 @@ public class Converter
             {
                 var wf = wordForms.GetWordForms(item.Headword, NoPFX:true, NoCross:true).SFX;
                 outputEntries.Add(
-                    new OutputEntry(item.Headword, item.Definition, wf)
+                    new OutputEntry(item.Headword!, item.Definition!, wf)
                 );
             }
         }
@@ -75,7 +75,7 @@ public class Converter
             foreach (var item in fonoFormat)
             {
                 outputEntries.Add(
-                    new OutputEntry(item.Headword, item.Definition)
+                    new OutputEntry(item.Headword!, item.Definition!)
                 );
             }
         }

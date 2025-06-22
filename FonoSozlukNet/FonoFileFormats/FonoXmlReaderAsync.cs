@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 namespace FonoFileFormats;
@@ -10,7 +11,10 @@ public class FonoXmlReaderAsync : BaseFonoFormat
     private FonoXmlReaderAsync(Stream stream)
     {
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-        var streamReader = new StreamReader(stream, Encoding.GetEncoding(1254));
+        StreamReader streamReader;
+        streamReader = new StreamReader(stream, Encoding.GetEncoding(1254));
+        if (Is1251Necessary(streamReader))
+            streamReader = new StreamReader(stream, Encoding.GetEncoding(1251));
         fonoXml.Load(streamReader);
     }
 
@@ -63,5 +67,18 @@ public class FonoXmlReaderAsync : BaseFonoFormat
         }
     }
 
-    protected override void ReadEntries(Progress progress){}
+    protected override void ReadEntries(Progress progress) { }
+    
+    private bool Is1251Necessary(StreamReader sr)
+    {
+        var firstLine = sr.ReadLine();
+        if (string.IsNullOrEmpty(firstLine))
+            return false;
+        var match = Regex.Match(firstLine, "encoding=\"(.*?)\"");
+        if (match.Success
+            && match.Groups.Count > 1
+            && match.Groups[1].Value == "windows-1251")
+            return true;
+        return false;
+    }
 }

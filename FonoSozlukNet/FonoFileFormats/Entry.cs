@@ -2,6 +2,6 @@
 
 public class Entry
 {
-    public string Headword;
-    public string Definition;
+    public string? Headword;
+    public string? Definition;
 }

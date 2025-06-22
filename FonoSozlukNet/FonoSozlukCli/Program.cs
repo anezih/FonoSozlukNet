@@ -8,10 +8,10 @@ namespace FonoSozlukCli
     public class Options
     {
         [Option('f', "file", Required = true, HelpText = "Girdi Fono veri dosyasının konumu.")]
-        public string FonoFile {get; set;}
+        public string? FonoFile {get; set;}
 
         [Option('o', "out", HelpText = "Çıktı dosyalarının kaydedileceği konum.")]
-        public string OutFolder {get; set;}
+        public string? OutFolder {get; set;}
 
         [Option(Group = "OutputChoice", HelpText = "Sözlük Tsv biçiminde kaydedilsin.")]
         public bool Tsv {get; set;}
@@ -20,7 +20,7 @@ namespace FonoSozlukCli
         public bool StarDict {get; set;}
 
         [Option("hunspell", HelpText = "Madde başlarının çekimli durumlarının üretilmesi için gerekli Hunspell Dic dosyasının konumu.")]
-        public string HunspellPath {get; set;}
+        public string? HunspellPath {get; set;}
     }
 
     class Program
@@ -103,18 +103,18 @@ namespace FonoSozlukCli
                     }
                 };
             var fname = opts.FonoFile;
-            if (!CheckPath(fname))
+            if (!CheckPath(fname!))
             {
                 return;
             }
-            var outFolder = GetOutputFolder(opts.OutFolder);
-            var wordForms = GetWordForms(opts.HunspellPath);
-            var dictInfo = GetDictInfo(fname);
-            var format = FonoFormat.GuessTypeFromFileExtension(fname);
-            var fonoFormat = FonoFormat.GetFonoFormat(fname, readProgress, format);
+            var outFolder = GetOutputFolder(opts.OutFolder!);
+            var wordForms = GetWordForms(opts.HunspellPath!);
+            var dictInfo = GetDictInfo(fname!);
+            var format = FonoFormat.GuessTypeFromFileExtension(fname!);
+            var fonoFormat = FonoFormat.GetFonoFormat(fname!, readProgress, format);
             var converter = wordForms == null
-                ? new Converter(dictInfo, fonoFormat)
-                : new Converter(dictInfo, fonoFormat, wordForms);
+                ? new Converter(dictInfo, fonoFormat!)
+                : new Converter(dictInfo, fonoFormat!, wordForms);
             if (opts.Tsv)
             {
                 PreOutputMsg("Sözlük Tsv biçiminde kaydediliyor...");
@@ -131,6 +131,19 @@ namespace FonoSozlukCli
 
         static void Main(string[] args)
         {
+            #if DEBUG
+                List<string> list = new List<string>();
+                if (args.Length == 0)
+                {
+                    string? arg = "";
+                    do
+                    {
+                        arg = Console.ReadLine();
+                        if (!string.IsNullOrEmpty(arg)) list.Add(arg);
+                    } while (arg != "");
+                    args = list.ToArray();
+                }
+            #endif
             Parser.Default.ParseArguments<Options>(args)
                 .WithParsed(RunOptions);
         }

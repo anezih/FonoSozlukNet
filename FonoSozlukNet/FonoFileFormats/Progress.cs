@@ -24,7 +24,7 @@ public class Progress
 
     public delegate void ProgressEventHandler(object source, EventArgs e);
 
-    public event ProgressEventHandler StepIncremented;
+    public event ProgressEventHandler? StepIncremented;
 
     protected virtual void OnStepIncremented()
     {
