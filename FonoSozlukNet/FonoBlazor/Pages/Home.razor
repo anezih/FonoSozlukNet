@@ -110,7 +110,13 @@
         <FluentDivider Style="width: 100%; margin: 5px; border: 1px solid var(--accent-fill-rest);" Orientation="Orientation.Horizontal" Role="DividerRole.Presentation"></FluentDivider>
     }
 
-    <FluentDataGrid Items="@FilteredItems" ResizableColumns=true Pagination="@pagination" GridTemplateColumns="0.4fr 1fr " Style="margin: 5px; overflow:auto;">
+    <FluentDataGrid
+    Items="@FilteredItems"
+    ResizableColumns=true
+    Pagination="@pagination"
+    GridTemplateColumns="0.4fr 1fr"
+    Style="margin: 5px; overflow:auto;"
+    MultiLine="true">
         <PropertyColumn Property="@(c => c.Headword)" Sortable="true" Filtered="!string.IsNullOrWhiteSpace(headwordFilter)" Tooltip="true" Title="Madde Başı">
             <ColumnOptions>
                 <div class="search-box">
